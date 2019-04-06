@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CompassServer
 {
-    public class TimedMessageBuffer
+    public class MessageBuffer
     {
         public delegate void TimedBufferCallback(String message);
         public delegate void DebugPrintCallback(String message);

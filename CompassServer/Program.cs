@@ -23,14 +23,14 @@ namespace CompassServer
             SerialPortWrapper portWrapper = new SerialPortWrapper();
             portWrapper.Init();
 
-            AsynchronousSocketListener._socketCallback += TimedMessageBuffer.SocketCallback;
-            TimedMessageBuffer._writeToSerialPortCallback += portWrapper.WriteSerialPort;
-            TimedMessageBuffer._debugPrintCallback += compass.WriteDebugLine;
-            TimedMessageBuffer._serialReadCallback += portWrapper.ReadSerialPort;
+            AsynchronousSocketListener._socketCallback += MessageBuffer.SocketCallback;
+            MessageBuffer._writeToSerialPortCallback += portWrapper.WriteSerialPort;
+            MessageBuffer._debugPrintCallback += compass.WriteDebugLine;
+            MessageBuffer._serialReadCallback += portWrapper.ReadSerialPort;
             compass._writeToSerialPortCallback = portWrapper.WriteSerialPort;
 
             Thread socketThread = new System.Threading.Thread(new ThreadStart(AsynchronousSocketListener.StartListening));
-            Thread bufferThread = new System.Threading.Thread(new ThreadStart(TimedMessageBuffer.Run));
+            Thread bufferThread = new System.Threading.Thread(new ThreadStart(MessageBuffer.Run));
 
             socketThread.Start();
             bufferThread.Start();
